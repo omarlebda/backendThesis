@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+	Add a job
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+<h1>Add a job</h1>
+<form method="post">{% csrf_token %}
+	{{ form|crispy }}
+	 <a href="{% url 'newCompany' pk=request.user.id %}" class="btn btn-secondary">Add a Company</a>
+	<input class="btn btn-primary" type="submit" value='save'>
+</form>
+</div>
+{% endblock content %}

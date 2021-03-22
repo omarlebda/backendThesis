@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Alumni Detail
+{% endblock title %}
+
+{% block base_head %}
+<link href="https://fonts.googleapis.com/css?family=Muli%7CRoboto:400,300,500,700,900" rel="stylesheet">
+{% endblock base_head %}
+
+{% block content %}
+    <div class="main-nav">
+        <ul class="nav">
+          {% if user.is_authenticated %}
+          <li class="name">{{ alumni.user }}</li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
+          <li><a href="{% url 'home' %}">Home</a></li>
+        </ul>
+    </div>
+
+    <header>
+      <img src="/static/imgs/pp.jpg" alt="John Doe" class="profile-image">
+      <h1 class="tag name">Hello, I’m {{ alumni.user }}.</h1>
+      <p class="tag location">Welcome to my profile</p>
+    </header>
+    <div class="container mt-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Personal Information:</h5>
+          <p class="card-text"><b>First Name:</b> {{ alumni.user.first_name }}</p>
+          <p class="card-text"><b>Last Name: </b>{{ alumni.user.last_name }}</p>
+          <p class="card-text"><b>Email:</b> {{ alumni.user.email }}</p>
+          <a href="" class="btn btn-success">Connect to my LinkedIn Account</a>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-5">
+      {% if user.id == alumni.id  %}
+      <h3>Degrees</h3>
+      <a href="{% url 'newGraduation' pk=alumni.user.id %}" class="btn btn-primary">Add a degree</a>
+
+      {% for graduation in alumni.graduation.all %}
+      <div class="card">
+        <div class="card-header">
+          {{graduation.degree}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{graduation.faculty}}</h5>
+          <p class="card-text">Year: {{graduation.yearOfGraduation}}</p>
+          <p class="card-text">Group Number: {{graduation.groupNumber}}</p>
+          <a href="{% url 'editGraduation' pk=graduation.pk %}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'deleteGraduation' pk=graduation.pk %}" class="btn btn-primary">Delete</a>
+        </div>
+        {% if graduation.grad_project.title == "" %}
+            <a href="{% url 'newProject' pk=graduation.pk %}" class="btn btn-primary">Add a project</a>
+        {% else %}      
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Graduation project</h5>
+                <p class="card-text">Title: {{graduation.grad_project.title}}</p>
+                <p class="card-text">Description: {{graduation.grad_project.description}}</p>
+                <p class="card-text">Mark: {{graduation.grad_project.mark}}</p>
+                <p class="card-text">Git link: {{graduation.grad_project.gitLink}}</p>
+                <a href="{% url 'editProjGraduation' pk=graduation.grad_project.pk %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'deleteProjGraduation' pk=graduation.grad_project.pk %}" class="btn btn-primary">Delete</a>
+              </div>
+            </div>
+      {% endif %}
+      </div>
+      {% endfor %}
+      
+
+    <h3>Work Experience</h3>
+    <a href="{% url 'newJob' pk=alumni.user.id %}" class="btn btn-primary">Add a work experience</a>
+    {% for job in alumni.company.all %}
+
+    <div class="card">
+        <div class="card-header">
+          {{job.position}} at {{ job.company.name }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Information:</h5>
+          <p class="card-text">Start Date: {{job.startDate}}</p>
+          <p class="card-text">End Date: {{job.endDate}}</p>
+          <p class="card-text">{{job.company.information}}</p>
+          <p class="card-text">Company Address: {{job.company.address}}</p>
+          <p class="card-text">Email: {{job.company.email}}</p>
+          <a href="{% url 'editJob' pk=job.id %}" class="btn btn-primary">Edit a job</a>
+          <a href="{% url 'deleteJob' pk=job.id %}" class="btn btn-primary">Delete a job</a>
+        </div>
+      </div>
+    {% empty %}
+    <div>None</div>
+    {% endfor %}
+    
+    
+
+    <!--Condition-->
+    {% else %}
+     <h3>Degrees</h3>
+      {% for graduation in alumni.graduation.all %}
+      <div class="card">
+        <div class="card-header">
+          {{graduation.degree}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{graduation.faculty}}</h5>
+          <p class="card-text">Year: {{graduation.yearOfGraduation}}</p>
+          <p class="card-text">Group Number: {{graduation.groupNumber}}</p>
+        </div>
+        {% if graduation.grad_project.title == "" %}
+        {% else %}      
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Graduation project</h5>
+                <p class="card-text">Title: {{graduation.grad_project.title}}</p>
+                <p class="card-text">Description: {{graduation.grad_project.description}}</p>
+                <p class="card-text">Mark: {{graduation.grad_project.mark}}</p>
+                <p class="card-text">Git link: {{graduation.grad_project.gitLink}}</p>
+              </div>
+            </div>
+      {% endif %}
+      </div>
+      {% endfor %}
+      
+
+    <h3>Work Experience</h3>
+    {% for job in alumni.company.all %}
+
+    <div class="card">
+        <div class="card-header">
+          {{job.position}} at {{ job.company.name }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Information:</h5>
+          <p class="card-text">Start Date: {{job.startDate}}</p>
+          <p class="card-text">End Date: {{job.endDate}}</p>
+          <p class="card-text">{{job.company.information}}</p>
+          <p class="card-text">Company Address: {{job.company.address}}</p>
+          <p class="card-text">Email: {{job.company.email}}</p>
+        </div>
+      </div>
+    {% empty %}
+    <div>None</div>
+    {% endfor %}
+    {% endif %}
+    </div>
+    <footer>
+      <p class="copyright ftbtn"></p>
+    </footer>
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+{% endblock content %}
