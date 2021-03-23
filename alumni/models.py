@@ -6,8 +6,10 @@ User = settings.AUTH_USER_MODEL
 # Create your models here.
 class Alumni(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	profile_pic = models.ImageField(null=True, blank=True)
 	def __str__(self):
 		return str(self.user)
+
 
 class Graduation(models.Model):
 	faculty = models.CharField(max_length=120)

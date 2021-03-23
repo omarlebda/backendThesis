@@ -164,8 +164,8 @@ CORS_ALLOWED_ORIGINS = [
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/imgs')
+MEDIA_URL = '/imgs/'
 
 AUTH_USER_MODEL = "users.CustomUser"
 LOGIN_REDIRECT_URL = 'home'

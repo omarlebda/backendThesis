@@ -35,7 +35,7 @@ class AlumniSerializer(serializers.ModelSerializer):
     graduation = GraduationSerializer(many=True, read_only=True)
     work = WorkSerializer(many=True, read_only=True)
     class Meta:
-        fields = ('id', 'username', 'email', 'graduation', 'work',)
+        fields = ('id', 'username', 'email', 'graduation', 'work', 'profile_pic')
         model = Alumni
 
 

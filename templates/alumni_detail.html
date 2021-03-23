@@ -23,7 +23,12 @@ Alumni Detail
     </div>
 
     <header>
-      <img src="/static/imgs/pp.jpg" alt="John Doe" class="profile-image">
+      {% if alumni.profile_pic %}
+        <img src="{{alumni.profile_pic.url}}" alt="John Doe" class="profile-image"> 
+      {% else %}
+        <img src="/static/imgs/pp.jpg" alt="John Doe" class="profile-image">
+      {% endif %}
+      
       <h1 class="tag name">Hello, I’m {{ alumni.user }}.</h1>
       <p class="tag location">Welcome to my profile</p>
     </header>
