@@ -2,26 +2,30 @@ from rest_framework import serializers
 from alumni.models import Alumni, Graduation, GraduationProject, Company, Job, User
 
 class GraduationProjectSerializer(serializers.ModelSerializer):
-  class Meta:
-    fields = ('title', 'description', 'mark', 'gitLink',)
-    model = GraduationProject
+    pk = serializers.ReadOnlyField()
+    class Meta:
+        fields = ('pk', 'title', 'description', 'mark', 'gitLink',)
+        model = GraduationProject
 
 class GraduationSerializer(serializers.ModelSerializer):
     grad_project = GraduationProjectSerializer(read_only = True)
+    id = serializers.ReadOnlyField()
     class Meta:
-        fields = ['degree', 'faculty', 'yearOfGraduation', 'groupNumber', 'grad_project',]
+        fields = ('id','degree', 'faculty', 'yearOfGraduation', 'groupNumber', 'grad_project',)
         model = Graduation
 
 class CompanySerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
-        fields = ['name', 'address', 'email', 'information',]
+        fields = ('id','name', 'address', 'email', 'information',)
         model = Company
 
 
 class WorkSerializer(serializers.ModelSerializer):
     company = CompanySerializer(read_only = True)
+    id = serializers.ReadOnlyField()
     class Meta:
-        fields = ['position', 'startDate', 'endDate', 'company',]
+        fields = ('id','position', 'startDate', 'endDate', 'company',)
         model = Job
 
 class AlumniSerializer(serializers.ModelSerializer):
