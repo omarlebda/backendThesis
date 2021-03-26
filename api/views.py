@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions 
 from alumni.models import Alumni, Graduation, GraduationProject, Company, Job
 from .serializers import AlumniSerializer, CreateGraduationSerializer, CreateGraduationProjectSerializer, CreateJobSerializer, CreateCompanySerializer
-from .permissions import IsAuthorOrReadOnly, IsTheOwnerOfGraduation
+from .permissions import IsAuthorOrReadOnly, IsTheOwnerOfGraduation, IsTheAlumni
 
 
 # Create your views here.
@@ -11,6 +11,11 @@ class AlumniList(generics.ListAPIView):
 
 
 class AlumniDetail(generics.RetrieveAPIView):
+    queryset = Alumni.objects.all()
+    serializer_class = AlumniSerializer
+
+class AlumniEdit(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsTheAlumni,) 
     queryset = Alumni.objects.all()
     serializer_class = AlumniSerializer
 

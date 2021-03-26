@@ -1,7 +1,8 @@
 from django.urls import path
-from .views import AlumniList, AlumniDetail, APIGraduationCreateView, APIGraduationUpdateDeleteView, APIGraduationProjectCreateView, APIGraduationProjectUpdateDeleteView, APIJobCreateView, APIJobEditDeleteView, APICompanyCreateView
+from .views import AlumniList, AlumniDetail, AlumniEdit, APIGraduationCreateView, APIGraduationUpdateDeleteView, APIGraduationProjectCreateView, APIGraduationProjectUpdateDeleteView, APIJobCreateView, APIJobEditDeleteView, APICompanyCreateView
 urlpatterns = [
 path('<int:pk>/', AlumniDetail.as_view()),
+path('edit_profile/<int:pk>/', AlumniEdit.as_view()),
 path('', AlumniList.as_view()),
 path('<int:pk>/add_graduation/', APIGraduationCreateView.as_view()),
 path('edit_or_delete_graduation/<int:pk>/', APIGraduationUpdateDeleteView.as_view()),

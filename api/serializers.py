@@ -11,7 +11,7 @@ class GraduationSerializer(serializers.ModelSerializer):
     grad_project = GraduationProjectSerializer(read_only = True)
     id = serializers.ReadOnlyField()
     class Meta:
-        fields = ('id','degree', 'faculty', 'yearOfGraduation', 'groupNumber', 'grad_project',)
+        fields = ('id','degree', 'faculty', 'yearOfGraduation', 'groupNumber', 'grad_project', 'description', 'university',)
         model = Graduation
 
 class CompanySerializer(serializers.ModelSerializer):
@@ -31,11 +31,14 @@ class WorkSerializer(serializers.ModelSerializer):
 class AlumniSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username", read_only=True)
     email = serializers.CharField(source="user.email", read_only=True)
-    #graduation = serializers.StringRelatedField(many=True)
+    phone_number = serializers.CharField(source="user.phone_number", read_only=True)
+    # bio = serializers.CharField(source="user.bio", read_only=True)
+    # current_city = serializers.CharField(source="user.current_city", read_only=True)
+    # birthdate = serializers.CharField(source="user.birthdate", read_only=True)
     graduation = GraduationSerializer(many=True, read_only=True)
     work = WorkSerializer(many=True, read_only=True)
     class Meta:
-        fields = ('id', 'username', 'email', 'graduation', 'work', 'profile_pic')
+        fields = ('id', 'username', 'email', 'graduation', 'work', 'profile_pic', 'phone_number','bio', 'birthdate', 'current_city', 'current_job', 'facebook_link', 'twitter_link', 'instagram_link', 'skype_link', 'linkedin_link',)
         model = Alumni
 
 
