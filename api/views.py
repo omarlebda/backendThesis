@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions
 from alumni.models import Alumni, Graduation, GraduationProject, Company, Job
-from .serializers import AlumniSerializer, CreateGraduationSerializer, CreateGraduationProjectSerializer, CreateJobSerializer, CreateCompanySerializer
+from .serializers import AlumniSerializer, CreateGraduationSerializer, CreateGraduationProjectSerializer, CreateJobSerializer, CreateCompanySerializer, CompanySerializer
 from .permissions import IsAuthorOrReadOnly, IsTheOwnerOfGraduation, IsTheAlumni
 
 
@@ -8,6 +8,11 @@ from .permissions import IsAuthorOrReadOnly, IsTheOwnerOfGraduation, IsTheAlumni
 class AlumniList(generics.ListAPIView):
     queryset = Alumni.objects.all()
     serializer_class = AlumniSerializer
+
+
+class CompanyList(generics.ListAPIView):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
 
 
 class AlumniDetail(generics.RetrieveAPIView):
@@ -46,13 +51,13 @@ class APIGraduationProjectUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView
 
 
 class APIJobCreateView(generics.CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CreateJobSerializer
     queryset = Job.objects.all()
 
 
 class APIJobEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthorOrReadOnly,)
+    #permission_classes = (IsAuthorOrReadOnly,)
     serializer_class = CreateJobSerializer
     queryset = Job.objects.all()
 
