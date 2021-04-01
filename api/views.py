@@ -21,7 +21,7 @@ class AlumniDetail(generics.RetrieveAPIView):
 
 
 class AlumniEdit(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsTheAlumni,)
+    #permission_classes = (IsTheAlumni,)
     queryset = Alumni.objects.all()
     serializer_class = AlumniSerializer
 

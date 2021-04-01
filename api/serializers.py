@@ -39,12 +39,12 @@ class WorkSerializer(serializers.ModelSerializer):
 
 class AlumniSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username", read_only=True)
-    email = serializers.CharField(source="user.email", read_only=True)
+    email = serializers.CharField(source="user.email")
     phone_number = serializers.CharField(
-        source="user.phone_number", read_only=True)
+        source="user.phone_number")
     first_name = serializers.CharField(
-        source="user.first_name", read_only=True)
-    last_name = serializers.CharField(source="user.last_name", read_only=True)
+        source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
     user_id = serializers.IntegerField(source="user.id", read_only=True)
     # bio = serializers.CharField(source="user.bio", read_only=True)
     # current_city = serializers.CharField(source="user.current_city", read_only=True)
