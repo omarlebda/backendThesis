@@ -117,3 +117,9 @@ class CreateCompanySerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('name', 'address', 'email', 'information',)
         model = Company
+
+
+class ProfilePicSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('profile_pic',)
+        model = Alumni
