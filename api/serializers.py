@@ -46,16 +46,52 @@ class AlumniSerializer(serializers.ModelSerializer):
         source="user.first_name")
     last_name = serializers.CharField(source="user.last_name")
     user_id = serializers.IntegerField(source="user.id", read_only=True)
-    # bio = serializers.CharField(source="user.bio", read_only=True)
-    # current_city = serializers.CharField(source="user.current_city", read_only=True)
-    # birthdate = serializers.CharField(source="user.birthdate", read_only=True)
     graduation = GraduationSerializer(many=True, read_only=True)
     work = WorkSerializer(many=True, read_only=True)
+    profile_pic = serializers.ImageField(read_only=True)
 
     class Meta:
         fields = ('id', 'username', 'email', 'graduation', 'work', 'profile_pic', 'phone_number', 'bio', 'birthdate', 'current_city',
                   'current_job', 'facebook_link', 'twitter_link', 'instagram_link', 'skype_link', 'linkedin_link', 'first_name', 'last_name', 'user_id')
         model = Alumni
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('user')
+        profile = instance.user
+
+        # User Info
+        profile.first_name = profile_data.get(
+            'first_name', profile.first_name)
+        profile.last_name = profile_data.get(
+            'last_name', profile.last_name)
+        profile.email = profile_data.get(
+            'email', profile.email)
+        profile.phone_number = profile_data.get(
+            'phone_number', profile.phone_number)
+        profile.save()
+
+        # Alumni Info
+        instance.bio = validated_data.get(
+            'bio', instance.bio)
+        instance.birthdate = validated_data.get(
+            'birthdate', instance.birthdate)
+        instance.current_city = validated_data.get(
+            'current_city', instance.current_city)
+        instance.current_job = validated_data.get(
+            'current_job', instance.current_job)
+        instance.facebook_link = validated_data.get(
+            'facebook_link', instance.facebook_link)
+        instance.twitter_link = validated_data.get(
+            'twitter_link', instance.twitter_link)
+        instance.instagram_link = validated_data.get(
+            'instagram_link', instance.instagram_link)
+        instance.skype_link = validated_data.get(
+            'skype_link', instance.skype_link)
+        instance.linkedin_link = validated_data.get(
+            'linkedin_link', instance.linkedin_link)
+        instance.save()
+
+        return instance
 
 
 class CreateGraduationSerializer(serializers.ModelSerializer):
