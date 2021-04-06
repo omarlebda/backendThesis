@@ -9,7 +9,7 @@ urlpatterns = [
     path('add_graduation/', APIGraduationCreateView.as_view()),
     path('edit_or_delete_graduation/<int:pk>/',
          APIGraduationUpdateDeleteView.as_view()),
-    path('<int:pk>/add_graduation_project/',
+    path('add_graduation_project/',
          APIGraduationProjectCreateView.as_view()),
     path('<int:pk>/edit_or_delete_graduation_project/',
          APIGraduationProjectUpdateDeleteView.as_view()),

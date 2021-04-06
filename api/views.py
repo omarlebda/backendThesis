@@ -39,13 +39,13 @@ class APIGraduationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class APIGraduationProjectCreateView(generics.CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CreateGraduationProjectSerializer
     queryset = GraduationProject.objects.all()
 
 
 class APIGraduationProjectUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsTheOwnerOfGraduation,)
+    #permission_classes = (IsTheOwnerOfGraduation,)
     serializer_class = CreateGraduationProjectSerializer
     queryset = GraduationProject.objects.all()
 
@@ -63,7 +63,7 @@ class APIJobEditDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class APICompanyCreateView(generics.CreateAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CreateCompanySerializer
     queryset = Company.objects.all()
 
