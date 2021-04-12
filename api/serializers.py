@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from alumni.models import Alumni, Graduation, GraduationProject, Company, Job, User
+from users.models import CustomUser
 
 
 class GraduationProjectSerializer(serializers.ModelSerializer):
