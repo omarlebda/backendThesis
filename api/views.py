@@ -76,3 +76,8 @@ class APICompanyCreateView(generics.CreateAPIView):
 class APIProfilePic(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfilePicSerializer
     queryset = Alumni.objects.all()
+
+
+class APIProfilePicAdd(generics.CreateAPIView):
+    serializer_class = ProfilePicSerializer
+    queryset = Alumni.objects.all()
